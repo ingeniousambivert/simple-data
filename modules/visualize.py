@@ -4,34 +4,43 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 
-def plot_histogram(df):
-    # Add your Seaborn and Matplotlib visualization code for files with specific string 1 here
-    # sns.histplot(data=df)
-    # plt.show()
-    print("histplot")
+def visualize_contacts(df):
+    plt.figure(figsize=(10, 6))
+    sns.countplot(data=df, x="country")
+    plt.title("Country Distribution")
+    plt.xlabel("Country")
+    plt.ylabel("Count")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    plt.figure(figsize=(12, 6))
+    tags_counts = df["tags"].apply(len)
+    sns.barplot(x=tags_counts.value_counts().index, y=tags_counts.value_counts().values)
+    plt.title("Number of Tags per Contact")
+    plt.xlabel("Number of Tags")
+    plt.ylabel("Count")
+    plt.tight_layout()
+    plt.show()
+
+    print("Plotted visualization for Contacts")
 
 
-def plot_scatter(df):
-    # Add your Seaborn and Matplotlib visualization code for files with specific string 2 here
-    # sns.scatterplot(data=df, x="x_column", y="y_column")
-    # plt.show()
-    print("scatterplot")
+def visualize_campaigns(df):
+    status_counts = df["status"].value_counts()
+    sns.set(style="whitegrid")
+    plt.figure(figsize=(8, 6))
+    sns.barplot(x=status_counts.index, y=status_counts.values)
+    plt.title("Campaign Status Distribution")
+    plt.xlabel("Status")
+    plt.ylabel("Count")
+    plt.show()
 
-
-def plot_line(df):
-    # Add your Seaborn and Matplotlib visualization code for files with specific string 3 here
-    # sns.lineplot(data=df, x="x_column", y="y_column")
-    # plt.show()
-    print("lineplot")
+    print("Plotted visualization for Campaigns")
 
 
 visualization_functions = {
-    "contacts": plot_histogram,
-    "campaigns": plot_scatter,
-    "locations": plot_line,
-    "tags": plot_line,
-    "customFields": plot_scatter,
-    "pipelines": plot_histogram,
+    "contacts": visualize_contacts,
+    "campaigns": visualize_campaigns,
 }
 
 

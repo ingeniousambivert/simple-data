@@ -50,25 +50,6 @@ def clean_data():
                 )
                 print(f"Scaled values from {file}...")
 
-                categorical_cols = df.select_dtypes(include=["object"]).columns
-                if not categorical_cols.empty:
-                    print(f"Categorical columns found: {categorical_cols}")
-
-                    df = pd.get_dummies(df, columns=categorical_cols)
-                    print(f"Categorized values from {file}...")
-
-                    selector = VarianceThreshold(threshold=0.01)
-                    df = pd.DataFrame(
-                        selector.fit_transform(df),
-                        columns=df.columns[selector.get_support()],
-                    )
-                    print(f"Removed low variance values from {file}...")
-
-                    filename_without_extension = os.path.splitext(file)[0]
-                    dfs[filename_without_extension] = df
-                else:
-                    print("No categorical columns found.")
-
             filename_without_extension = os.path.splitext(file)[0]
             dfs[filename_without_extension] = df
 

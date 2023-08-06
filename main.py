@@ -23,29 +23,35 @@ if __name__ == "__main__":
     print("______   Group 7  ______\n")
     print("Data Analytics Wizard :\n")
 
-    user_endpoints = input("Enter entities (contacts,campaigns,tags... or 'all' for all entities): ").split(',')
+    user_endpoints = input(
+        "Enter entities (contacts,campaigns,tags... or 'all' for all entities): "
+    ).split(",")
     user_output_format = input("Enter output format (csv or xlsx): ")
-    user_limit = input("Enter the maximum number of data points to fetch (or leave empty for all): ")
+    user_limit = input(
+        "Enter the maximum number of data points to fetch (or leave empty for all): "
+    )
 
     if "all" in user_endpoints:
         user_endpoints = endpoints.keys()
 
     limit = int(user_limit) if user_limit else None
-    
+
     print("\nStarting Extraction Process.\n")
-    extract_data({key: endpoints[key] for key in user_endpoints}, user_output_format, limit)
+    extract_data(
+        {key: endpoints[key] for key in user_endpoints}, user_output_format, limit
+    )
     print("\nExtraction process complete.\n")
-    
+
     print("\nStarting Cleaning Process.\n")
     clean_data()
     print("\nCleaning process complete.\n")
-    
+
     print("\nStarting Computation Process.\n")
     compute_data(user_output_format)
     print("\nComputation process complete.\n")
-    
+
     print("\nStarting Visualization Process.\n")
     # visualize_data()
     print("\nVisualization process complete.\n")
-    
-    print("\nPlease check the 'data' directory for all the resultant data.\n")
+
+    print("\nPlease check the 'export' directory for all the resultant data.\n")

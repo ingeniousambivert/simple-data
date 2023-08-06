@@ -23,8 +23,9 @@ if __name__ == "__main__":
     print("______   Group 7  ______\n")
     print("Data Analytics Wizard :\n")
     print(
-        "Note: If you do not wish to go through the entire wizard, you can specify the step name (extract | clean | compute | visualize)\nas the first command line argument while running the script. Skipping steps only works after initial run.\n"
+        "Note: If you do not wish to go through the entire wizard, you can specify the step name (extract | clean | compute | visualize)\nas the first command line argument to skip to it while running the script."
     )
+    print("SKIPPING STEPS ONLY WORKS AFTER AN INITIAL RUN.\n")
 
     if len(sys.argv) > 1 and sys.argv[1] == "extract":
         user_endpoints = input(

@@ -45,4 +45,4 @@ Getting up and running is simple.
    python3 main.py
    ```
 
-_All the resultant data will be stored categorically in the "exports" directory_
+_All the resultant data is versioned using timestamps will be stored categorically in the "exports" directory_

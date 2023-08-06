@@ -36,7 +36,6 @@ Getting up and running is simple.
    TAGS_URL=
    CUSTOM_FIELDS=
    PIPELINES_URL=
-   OPPORTUNITIES_URL=
    ```
 
 5. Start your script.

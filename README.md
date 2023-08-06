@@ -44,3 +44,5 @@ Getting up and running is simple.
    ```bash
    python3 main.py
    ```
+
+_All the resultant data will be stored categorically in the "exports" directory_

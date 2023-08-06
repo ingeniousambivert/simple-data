@@ -47,7 +47,7 @@ def extract_data(endpoints, output_format, limit=None):
         dfs[key] = df
 
     data_folder_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "..", "export"
+        os.path.dirname(os.path.abspath(__file__)), "..", "exports"
     )
     extracted_folder_path = os.path.join(data_folder_path, "extracted")
 

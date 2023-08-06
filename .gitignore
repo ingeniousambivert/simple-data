@@ -1,6 +1,7 @@
 .vscode
 /data
 /export
+/exports
 *.csv
 *.xlsx
 *.xls

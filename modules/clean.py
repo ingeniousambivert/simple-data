@@ -7,7 +7,7 @@ from sklearn.feature_selection import VarianceThreshold
 
 def clean_data():
     data_folder_path = os.path.join(
-        os.path.dirname(os.path.abspath(__file__)), "..", "export"
+        os.path.dirname(os.path.abspath(__file__)), "..", "exports"
     )
     cleaned_folder_path = os.path.join(data_folder_path, "cleaned")
     os.makedirs(cleaned_folder_path, exist_ok=True)

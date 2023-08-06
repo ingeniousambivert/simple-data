@@ -12,6 +12,10 @@ __pycache__/
 *.pyo
 *.pyd
 
+
+*.log
+*.txt
+
 # Virtual environment
 venv/
 

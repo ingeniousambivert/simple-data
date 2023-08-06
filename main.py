@@ -54,4 +54,4 @@ if __name__ == "__main__":
     # visualize_data()
     print("\nVisualization process complete.\n")
 
-    print("\nPlease check the 'export' directory for all the resultant data.\n")
+    print("\nPlease check the 'exports' directory for all the resultant data.\n")

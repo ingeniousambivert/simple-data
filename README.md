@@ -1,6 +1,6 @@
-# Capstone - Marketing Analysis
+# Capstone - Marketing Data Analysis
 
-Data Retrieval -> Data Cleaning -> Data Transformation -> Data Analysis -> Data Visualization
+Data Retrieval -> Data Cleaning -> Data Analysis -> Data Visualization
 
 ## Getting Started
 

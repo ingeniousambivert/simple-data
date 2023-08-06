@@ -22,6 +22,9 @@ if __name__ == "__main__":
     print("\n___  HUMBER COLLEGE  ___")
     print("______   Group 7  ______\n")
     print("Data Analytics Wizard :\n")
+    print(
+        "Note: If you do not wish to go through the entire wizard, you can specify the step name (extract | clean | compute | visualize)\nas the first command line argument while running the script.\n"
+    )
 
     if len(sys.argv) > 1 and sys.argv[1] == "extract":
         user_endpoints = input(

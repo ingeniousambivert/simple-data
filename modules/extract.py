@@ -4,17 +4,18 @@ import datetime
 import pandas as pd
 import time
 
+
 def log_failure(message):
-    log_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "errors.txt")
+    log_file_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "errors.log"
+    )
     with open(log_file_path, "a") as log_file:
         log_file.write(message + "\n")
-        
-        
+
+
 def fetch_data(url, key, retry_count=0, limit=None):
     api_key = os.environ["API_KEY"]
-    headers = {
-        "Authorization": "Bearer " + api_key
-    }
+    headers = {"Authorization": "Bearer " + api_key}
     try:
         if limit is None:
             print(f"Fetching data for {key}...")
@@ -33,8 +34,9 @@ def fetch_data(url, key, retry_count=0, limit=None):
         error_message = f"{datetime.datetime.now()}:{url}:{str(e)}"
         print(f"Request failed for {key}. Retrying in {2 ** retry_count} seconds...")
         log_failure(error_message)
-        time.sleep(2 ** retry_count)
+        time.sleep(2**retry_count)
         return fetch_data(url, key, retry_count + 1, limit) if retry_count < 5 else []
+
 
 def extract_data(endpoints, output_format, limit=None):
     dfs = {}
@@ -44,7 +46,9 @@ def extract_data(endpoints, output_format, limit=None):
         df = pd.DataFrame(all_data)
         dfs[key] = df
 
-    data_folder_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data")
+    data_folder_path = os.path.join(
+        os.path.dirname(os.path.abspath(__file__)), "..", "data"
+    )
     extracted_folder_path = os.path.join(data_folder_path, "extracted")
 
     os.makedirs(extracted_folder_path, exist_ok=True)
@@ -53,7 +57,7 @@ def extract_data(endpoints, output_format, limit=None):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d")
         file_name = f"{key}_data_{timestamp}.{output_format}"
         file_path = os.path.join(extracted_folder_path, file_name)
-            
+
         if output_format == "csv":
             print(f"Saving {file_name}...")
             df.to_csv(file_path, index=False)
@@ -62,10 +66,3 @@ def extract_data(endpoints, output_format, limit=None):
             df.to_excel(file_path, index=False)
 
     return dfs
-
-
-
-
-
-
-

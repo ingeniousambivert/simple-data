@@ -14,8 +14,6 @@ if __name__ == "__main__":
         "contacts": os.environ["CONTACTS_URL"],
         "campaigns": os.environ["CAMPAIGNS_URL"],
         "locations": os.environ["LOCATIONS_URL"],
-        "customFields": os.environ["CUSTOM_FIELDS"],
-        "tags": os.environ["TAGS_URL"],
         "pipelines": os.environ["PIPELINES_URL"],
     }
     os.system("cls" if os.name == "nt" else "clear")

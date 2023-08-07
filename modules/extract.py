@@ -39,7 +39,8 @@ def fetch_data(url, key, retry_count=0, limit=None):
                 data = response.json()
                 results.extend(data[key])
                 items_fetched = len(results)
-                print(f"Records fetched [{data[key]}]: {items_fetched}/{total_items}")
+                os.system("cls" if os.name == "nt" else "clear")
+                print(f"Records fetched [{key}]: {items_fetched}/{total_items}")
 
             return results
         else:

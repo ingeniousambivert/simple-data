@@ -17,16 +17,30 @@ def fetch_data(url, key, retry_count=0, limit=None):
     api_key = os.environ["API_KEY"]
     headers = {"Authorization": "Bearer " + api_key}
     try:
-        if limit is None:
+        if limit is not None:
             print(f"Fetching data for {key}...")
-            response = requests.get(url, headers=headers)
+            params = {"limit": limit}
+            response = requests.get(url, headers=headers, params=params)
         else:
             print(f"Fetching data for {key}...")
-            response = requests.get(url, headers=headers, params={"limit": limit})
+            response = requests.get(url, headers=headers)
+
         response.raise_for_status()
         data = response.json()
+
         if key in data:
-            return data[key]
+            results = data[key]
+
+            while "nextPageUrl" in data["meta"]:
+                next_url = data["meta"]["nextPageUrl"]
+                response = requests.get(next_url, headers=headers)
+                response.raise_for_status()
+                data = response.json()
+                results.extend(data[key])
+                items_fetched = len(results)
+                print(f"Items fetched: {items_fetched}/{total_items}")
+
+            return results
         else:
             return []
 

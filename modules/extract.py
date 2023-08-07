@@ -30,6 +30,7 @@ def fetch_data(url, key, retry_count=0, limit=None):
 
         if key in data:
             results = data[key]
+            total_items = data["meta"]["total"] or 1
 
             while "nextPageUrl" in data["meta"]:
                 next_url = data["meta"]["nextPageUrl"]

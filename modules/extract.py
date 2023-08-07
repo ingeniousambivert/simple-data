@@ -40,7 +40,7 @@ def fetch_data(url, key, limit, retry_count=0):
                     results.extend(data[key])
                     items_fetched = len(results)
                     os.system("cls" if os.name == "nt" else "clear")
-                    print(f"Records fetched [{key}]: {items_fetched}/{total_items}")
+                    print(f"\nRecords fetched [{key}]: {items_fetched}/{total_items}\n")
 
             return results
         else:
@@ -56,9 +56,25 @@ def fetch_data(url, key, limit, retry_count=0):
 
 def extract_data(endpoints, output_format, limit):
     dfs = {}
+    pipeline_ids = []
+    all_data = []
     base_url = os.environ["BASE_URL"]
     for key, endpoint in endpoints.items():
-        all_data = fetch_data(base_url + endpoint, key, limit, 0)
+        if key == "pipelines":
+            all_data = fetch_data(base_url + endpoint, key, limit, 0)
+            pipeline_ids = [item["id"] for item in all_data]
+        elif key == "opportunities":
+            opportunities_data = []
+            pipeline_endpoint = endpoints["pipelines"]
+            for id in pipeline_ids:
+                opportunity_data = fetch_data(
+                    f"{base_url}{pipeline_endpoint}{id}{endpoint}", key, limit, 0
+                )
+                opportunities_data.extend(opportunity_data)
+            all_data = opportunities_data
+        else:
+            all_data = fetch_data(base_url + endpoint, key, limit, 0)
+
         df = pd.DataFrame(all_data)
         dfs[key] = df
 

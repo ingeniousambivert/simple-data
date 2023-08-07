@@ -15,37 +15,27 @@ if __name__ == "__main__":
         "campaigns": os.environ["CAMPAIGNS_URL"],
         "locations": os.environ["LOCATIONS_URL"],
         "pipelines": os.environ["PIPELINES_URL"],
+        "opportunities": os.environ["OPPORTUNITIES_URL"],
     }
     os.system("cls" if os.name == "nt" else "clear")
     print("\n___  HUMBER COLLEGE  ___")
     print("______   Group 7  ______\n")
     print("Data Analytics Wizard :\n")
     print(
-        "Note: If you do not wish to go through the entire wizard, you can specify the step name (extract | clean | compute | visualize)\nas the first command line argument to skip to it while running the script."
-    )
-    print(
-        "TO SKIP STEPS, YOU MUST FIRST SUCCESSFULLY COMPLETE AT LEAST ONE WIZARD RUN.\n"
+        "Note:Specify the step name (extract | clean | compute | visualize) to just execute that."
     )
 
     if len(sys.argv) > 1 and sys.argv[1] == "extract":
-        user_endpoints = input(
-            "Enter entities (contacts,campaigns,tags... or 'all' for all entities): "
-        ).split(",")
         user_output_format = input("Enter output format (csv or xlsx): ")
         user_limit = input(
             "Enter the maximum number of data points to fetch (or leave empty for all): "
         )
-
-        if "all" in user_endpoints:
-            user_endpoints = endpoints.keys()
-
         limit = int(user_limit) if user_limit else None
 
         print("\nStarting Extraction Process.\n")
-        extract_data(
-            {key: endpoints[key] for key in user_endpoints}, user_output_format, limit
-        )
+        extract_data(endpoints, user_output_format, limit)
         print("\nExtraction process complete.\n")
+
     elif len(sys.argv) > 1 and sys.argv[1] == "clean":
         print("\nStarting Cleaning Process.\n")
         clean_data()
@@ -59,23 +49,15 @@ if __name__ == "__main__":
         visualize_data()
         print("\nVisualization process complete.\n")
     else:
-        user_endpoints = input(
-            "Enter entities (contacts,campaigns,tags... or 'all' for all entities): "
-        ).split(",")
         user_output_format = input("Enter output format (csv or xlsx): ")
         user_limit = input(
             "Enter the maximum number of data points to fetch (or leave empty for all): "
         )
 
-        if "all" in user_endpoints:
-            user_endpoints = endpoints.keys()
-
         limit = int(user_limit) if user_limit else None
 
         print("\nStarting Extraction Process.\n")
-        extract_data(
-            {key: endpoints[key] for key in user_endpoints}, user_output_format, limit
-        )
+        extract_data(endpoints, user_output_format, limit)
         print("\nExtraction process complete.\n")
 
         print("\nStarting Cleaning Process.\n")

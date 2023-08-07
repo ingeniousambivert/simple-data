@@ -33,8 +33,6 @@ Getting up and running is simple.
    CONTACTS_URL=
    CAMPAIGNS_URL=
    LOCATIONS_URL=
-   TAGS_URL=
-   CUSTOM_FIELDS=
    PIPELINES_URL=
    ```
 

@@ -13,34 +13,34 @@ def log_failure(message):
         log_file.write(message + "\n")
 
 
-def fetch_data(url, key, retry_count=0, limit=None):
+def fetch_data(url, key, limit, retry_count=0):
     api_key = os.environ["API_KEY"]
     headers = {"Authorization": "Bearer " + api_key}
     try:
-        if limit is not None:
+        if limit is None:
+            print(f"Fetching data for {key}...")
+            response = requests.get(url, headers=headers)
+        else:
             print(f"Fetching data for {key}...")
             params = {"limit": limit}
             response = requests.get(url, headers=headers, params=params)
-        else:
-            print(f"Fetching data for {key}...")
-            response = requests.get(url, headers=headers)
 
         response.raise_for_status()
         data = response.json()
 
         if key in data:
             results = data[key]
-            total_items = data["meta"]["total"] or 1
-
-            while "nextPageUrl" in data["meta"]:
-                next_url = data["meta"]["nextPageUrl"]
-                response = requests.get(next_url, headers=headers)
-                response.raise_for_status()
-                data = response.json()
-                results.extend(data[key])
-                items_fetched = len(results)
-                os.system("cls" if os.name == "nt" else "clear")
-                print(f"Records fetched [{key}]: {items_fetched}/{total_items}")
+            if limit is None:
+                while "nextPageUrl" in data["meta"]:
+                    total_items = data["meta"]["total"] or 1
+                    next_url = data["meta"]["nextPageUrl"]
+                    response = requests.get(next_url, headers=headers)
+                    response.raise_for_status()
+                    data = response.json()
+                    results.extend(data[key])
+                    items_fetched = len(results)
+                    os.system("cls" if os.name == "nt" else "clear")
+                    print(f"Records fetched [{key}]: {items_fetched}/{total_items}")
 
             return results
         else:
@@ -51,14 +51,14 @@ def fetch_data(url, key, retry_count=0, limit=None):
         print(f"Request failed for {key}. Retrying in {2 ** retry_count} seconds...")
         log_failure(error_message)
         time.sleep(2**retry_count)
-        return fetch_data(url, key, retry_count + 1, limit) if retry_count < 5 else []
+        return fetch_data(url, key, limit, retry_count + 1) if retry_count < 5 else []
 
 
-def extract_data(endpoints, output_format, limit=None):
+def extract_data(endpoints, output_format, limit):
     dfs = {}
     base_url = os.environ["BASE_URL"]
     for key, endpoint in endpoints.items():
-        all_data = fetch_data(base_url + endpoint, key, limit=limit)
+        all_data = fetch_data(base_url + endpoint, key, limit, 0)
         df = pd.DataFrame(all_data)
         dfs[key] = df
 

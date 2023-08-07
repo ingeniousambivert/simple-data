@@ -30,7 +30,7 @@ def fetch_data(url, key, limit, retry_count=0):
 
         if key in data:
             results = data[key]
-            if limit is None:
+            if limit is None and "meta" in data:
                 while "nextPageUrl" in data["meta"]:
                     total_items = data["meta"]["total"] or 1
                     next_url = data["meta"]["nextPageUrl"]
@@ -41,6 +41,8 @@ def fetch_data(url, key, limit, retry_count=0):
                     items_fetched = len(results)
                     os.system("cls" if os.name == "nt" else "clear")
                     print(f"\nRecords fetched [{key}]: {items_fetched}/{total_items}\n")
+                    if items_fetched == 1000 or items_fetched == total_items:
+                        break
 
             return results
         else:

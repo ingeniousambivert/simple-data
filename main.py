@@ -28,7 +28,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and sys.argv[1] == "extract":
         user_output_format = input("Enter output format (csv or xlsx): ")
         user_limit = input(
-            "Enter the maximum number of data points to fetch (or leave empty for all): "
+            "Enter the maximum number of data points to fetch (or leave empty for all | maximum: 1000): "
         )
         limit = int(user_limit) if user_limit else None
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     else:
         user_output_format = input("Enter output format (csv or xlsx): ")
         user_limit = input(
-            "Enter the maximum number of data points to fetch (or leave empty for all): "
+            "Enter the maximum number of data points to fetch (or leave empty for all | maximum: 1000): "
         )
 
         limit = int(user_limit) if user_limit else None

@@ -44,11 +44,11 @@ def clean_data():
                 )
                 print(f"Imputed values from {file}...")
 
-                scaler = MinMaxScaler()
-                df[non_empty_numerical_cols] = scaler.fit_transform(
-                    df[non_empty_numerical_cols]
-                )
-                print(f"Scaled values from {file}...")
+                # scaler = MinMaxScaler()
+                # df[non_empty_numerical_cols] = scaler.fit_transform(
+                #     df[non_empty_numerical_cols]
+                # )
+                # print(f"Scaled values from {file}...")
 
             filename_without_extension = os.path.splitext(file)[0]
             dfs[filename_without_extension] = df
